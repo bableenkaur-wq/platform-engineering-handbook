@@ -88,7 +88,7 @@ body{
 .scene{position:relative;padding:120px 8vw;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
 .scene.tight{min-height:auto;padding:90px 8vw}
 .wrap{width:100%;max-width:1080px;margin:0}
-.kicker{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--zop-orange);display:flex;align-items:center;gap:11px;margin-bottom:26px}
+.kicker{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:0.16em;color:var(--zop-orange);font-weight:500;display:flex;align-items:center;gap:11px;margin-bottom:22px}
 .kicker::before{content:'';width:11px;height:11px;background:var(--zop-orange);flex-shrink:0}
 .kicker.light{color:var(--zop-orange)}
 
@@ -238,11 +238,12 @@ h1,h2,h3{font-family:var(--font);letter-spacing:-0.03em;line-height:1.04;font-we
 .plist .t{font-family:var(--font);font-size:clamp(18px,2.2vw,24px);letter-spacing:-0.01em;font-weight:600}
 .plist .t .s{display:block;font-family:var(--body);font-size:14.5px;color:var(--g-600);margin-top:10px;line-height:1.6;max-width:64ch;font-weight:400}
 
-h2.big{font-size:clamp(26px,3.6vw,42px);font-weight:600;max-width:22ch}
+h2.big{font-size:clamp(30px,4.6vw,52px);font-weight:600;max-width:20ch}
 h2.big .o{color:var(--zop-orange)}
-h3.sec{font-size:clamp(24px,3.4vw,38px);margin-bottom:8px;font-weight:500;display:flex;align-items:center;gap:13px}
+h3.sec{font-size:clamp(26px,3.8vw,42px);margin-bottom:10px;font-weight:600;display:flex;align-items:center;gap:13px}
 h3.sec::before{content:none}
-h4.sub{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:0.12em;color:var(--zop-blue);font-weight:600;margin:30px 0 12px}
+h4.sub{font-family:var(--font);font-size:19px;letter-spacing:-0.01em;color:var(--ink);font-weight:600;margin:36px 0 12px;display:flex;align-items:center;gap:10px}
+h4.sub::before{content:"";width:9px;height:9px;background:var(--zop-orange);flex-shrink:0}
 
 /* simple bullet lists inside prose */
 .blist{list-style:none;margin:6px 0 22px;display:flex;flex-direction:column;gap:9px}
