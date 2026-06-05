@@ -1700,5 +1700,23 @@ figure.viz,.viz{position:relative}
   };
 })();
 </script>
+<script>(function(){
+  var s=document.createElement('style');
+  s.textContent='.kicker .numchip{display:inline-block;background:var(--zop-orange);color:var(--ink);padding:3px 9px;border-radius:5px;font-weight:600;letter-spacing:.02em;line-height:1.1}';
+  document.head.appendChild(s);
+  document.querySelectorAll('.kicker').forEach(function(k){
+    if(k.querySelector('.numchip')) return;
+    var node=null,i;
+    for(i=0;i<k.childNodes.length;i++){var c=k.childNodes[i];if(c.nodeType===3&&c.nodeValue.trim()){node=c;break;}}
+    if(!node) return;
+    var m=node.nodeValue.match(/^\s*(\d+(?:\.\d+)?(?:\s*[-\u2013]\s*\d+(?:\.\d+)?)?)\s*[\u00b7.]\s*(.*)$/);
+    if(!m) return;
+    var chip=document.createElement('span'); chip.className='numchip'; chip.textContent=m[1].replace(/\s+/g,'');
+    var rest=document.createTextNode(' '+m[2]);
+    node.parentNode.insertBefore(chip,node);
+    node.parentNode.insertBefore(rest,node);
+    node.parentNode.removeChild(node);
+  });
+})();</script>
 </body>
 </html>
