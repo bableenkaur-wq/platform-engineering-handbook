@@ -1531,7 +1531,7 @@ figure.viz,.viz{position:relative}
     if(k){
       var t=k.textContent.trim();
       var m=t.match(/^chapter\s+(\d+)/i); if(m) return 'CH'+m[1];
-      m=t.match(/^(\d+(?:\.\d+)?(?:\s*[–-]\s*\d+(?:\.\d+)?)?)\s*[·.]/); if(m) return m[1].replace(/\s+/g,'');
+      m=t.match(/^(\d+(?:\.\d+)?(?:\s*[--]\s*\d+(?:\.\d+)?)?)\s*[·.]/); if(m) return m[1].replace(/\s+/g,'');
       m=t.match(/^\s*,?\s*[^·]*·\s*(\d+(?:\.\d+)?)/); if(m) return m[1];
     }
     return '';
@@ -1721,7 +1721,7 @@ figure.viz,.viz{position:relative}
     if(!node) return;
     var m=node.nodeValue.match(/^\s*(\d+(?:\.\d+)?(?:\s*[-\u2013]\s*\d+(?:\.\d+)?)?)\s*[\u00b7.]\s*(.*)$/);
     if(!m) return;
-    var chip=document.createElement('span'); chip.className='numchip'; chip.textContent=m[1].replace(/\s+/g,'');
+    var chip=document.createElement('span'); chip.className='numchip'; chip.textContent=m[1].replace(/\s+/g,'').split(/[-\u2013\u2014]/)[0];
     var rest=document.createTextNode(' '+m[2]);
     node.parentNode.insertBefore(chip,node);
     node.parentNode.insertBefore(rest,node);
