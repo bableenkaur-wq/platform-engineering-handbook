@@ -344,17 +344,22 @@ h4.sub::before{content:"";width:9px;height:9px;background:var(--zop-orange);flex
   .bm-jump{left:14px;bottom:14px;padding:11px 13px;font-size:10px;gap:7px;max-width:48vw}
   .bm-jump #bmJumpLbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .bm-toast{right:14px;bottom:62px}
-  #hltbar button{font-size:10px;padding:7px 10px}
+  #hltbar{padding:6px 9px;gap:7px}
 }
 
 /* ============ READING TOOLS ============ */
 .topbar .sn{font-weight:600;margin-right:7px}
-#hltbar{position:fixed;z-index:300;display:none;gap:2px;background:var(--ink);border-radius:7px;padding:4px;border:1px solid #2a2a2a;transform:translate(-50%,-115%)}
-#hltbar button{background:none;border:none;color:var(--paper);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:8px 12px;cursor:pointer;border-radius:5px;display:flex;align-items:center;gap:7px}
-#hltbar button:hover{background:#2a2a2a}
-#hltbar .sw{width:12px;height:12px;border-radius:2px;background:var(--zop-orange);display:inline-block}
-mark.uh{background:rgba(245,133,73,.40);color:inherit;border-radius:2px;padding:0 1px;cursor:pointer}
-mark.uh:hover{background:rgba(245,133,73,.62)}
+#hltbar{position:fixed;z-index:300;display:none;align-items:center;gap:8px;background:var(--ink);border-radius:8px;padding:7px 11px;border:1px solid #2a2a2a;transform:translate(-50%,-118%)}
+#hltbar .hpen{display:flex;color:var(--paper);opacity:.8}
+#hltbar .hpen svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#hltbar .hc{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.22);background:var(--hcol);cursor:pointer;padding:0;transition:transform .14s,border-color .14s}
+#hltbar .hc:hover{transform:scale(1.18);border-color:#fff}
+#hltbar .hsep{width:1px;height:20px;background:#3a3a3a}
+#hltbar #hltShare{background:none;border:none;color:var(--paper);cursor:pointer;display:flex;padding:4px;border-radius:5px}
+#hltbar #hltShare:hover{background:#2a2a2a}
+#hltbar #hltShare svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+mark.uh{background:var(--uhc,rgba(245,133,73,.42));color:inherit;border-radius:2px;padding:0 1px;cursor:pointer}
+mark.uh:hover{filter:brightness(.94)}
 .bm-btn{position:fixed;right:24px;bottom:24px;z-index:215;display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:var(--paper);border:none;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;padding:13px 18px;cursor:pointer;transition:transform .25s,background .25s}
 .bm-btn:hover{transform:translateY(-2px)}
 .bm-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round}
@@ -1502,7 +1507,7 @@ figure.viz,.viz{position:relative}
 <button class="bm-btn" id="bmBtn" title="Bookmark this spot"><svg viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-5-7 5V4a1 1 0 0 1 1-1z"/></svg><span id="bmBtnLbl">Bookmark</span></button>
 <div class="bm-toast" id="bmToast"></div>
 <button class="bm-jump" id="bmJump"><svg viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-5-7 5V4a1 1 0 0 1 1-1z"/></svg><span id="bmJumpLbl">resume</span><span class="x" id="bmClear" title="Clear bookmark">×</span></button>
-<div id="hltbar"><button id="hltAdd"><span class="sw"></span>Highlight</button></div>
+<div id="hltbar"><span class="hpen" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15.5 4.5l4 4-9.5 9.5-4 1 1-4z"/><path d="M13.5 6.5l4 4"/></svg></span><button class="hc" data-c="o" style="--hcol:#F58549" title="Orange"></button><button class="hc" data-c="y" style="--hcol:#F4D03F" title="Yellow"></button><button class="hc" data-c="g" style="--hcol:#9CCC5A" title="Green"></button><button class="hc" data-c="b" style="--hcol:#7FA6E8" title="Blue"></button><span class="hsep"></span><button id="hltShare" title="Share selection"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg></button></div>
 
 <script>
 (function(){
@@ -1582,8 +1587,8 @@ figure.viz,.viz{position:relative}
   });
 
   /* ---------- user text highlighting ---------- */
-  var bar=document.getElementById('hltbar'), addBtn=document.getElementById('hltAdd');
-  /* areas where highlighting is allowed (readable body text) */
+  var bar=document.getElementById('hltbar');
+  var colMap={o:'rgba(245,133,73,.42)',y:'rgba(244,208,63,.55)',g:'rgba(156,204,90,.50)',b:'rgba(127,166,232,.45)'};
   function inReadable(node){
     while(node && node!==document.body){
       if(node.nodeType===1 && (node.classList.contains('prose')||node.classList.contains('wrap')||node.classList.contains('note')||node.tagName==='BLOCKQUOTE')) return true;
@@ -1601,55 +1606,64 @@ figure.viz,.viz{position:relative}
       var r=sel.getRangeAt(0);
       if(!inReadable(r.startContainer)){ hideBar(); return; }
       var rect=r.getBoundingClientRect();
-      bar.style.left=(rect.left+rect.width/2)+'px';
+      bar.style.left=Math.min(window.innerWidth-130,Math.max(130,rect.left+rect.width/2))+'px';
       bar.style.top=(rect.top)+'px';
       bar.style.display='flex';
     },1);
   });
   document.addEventListener('mousedown',function(e){ if(!bar.contains(e.target)) hideBar(); });
-  function highlightRange(range){
-    try{ var m=document.createElement('mark'); m.className='uh'; range.surroundContents(m); return [m]; }
+  function applyMark(range,ck){
+    var col=colMap[ck]||colMap.o;
+    function styl(m){ m.className='uh'; m.dataset.c=ck; m.style.setProperty('--uhc',col); }
+    try{ var m=document.createElement('mark'); styl(m); range.surroundContents(m); return; }
     catch(e){
-      /* selection spans multiple nodes: wrap each intersecting text node */
-      var marks=[], walker=document.createTreeWalker(range.commonAncestorContainer,NodeFilter.SHOW_TEXT,null);
-      var nodes=[], n;
+      var walker=document.createTreeWalker(range.commonAncestorContainer,NodeFilter.SHOW_TEXT,null), nodes=[], n;
       while(n=walker.nextNode()){ if(range.intersectsNode(n) && n.nodeValue.trim()) nodes.push(n); }
       nodes.forEach(function(tn){
         var s=(tn===range.startContainer)?range.startOffset:0;
         var en=(tn===range.endContainer)?range.endOffset:tn.nodeValue.length;
         if(en<=s) return;
         var rg=document.createRange(); rg.setStart(tn,s); rg.setEnd(tn,en);
-        var m=document.createElement('mark'); m.className='uh';
-        try{ rg.surroundContents(m); marks.push(m); }catch(_){}
+        var mm=document.createElement('mark'); styl(mm);
+        try{ rg.surroundContents(mm); }catch(_){}
       });
-      return marks;
     }
   }
   function saveHL(){
-    var arr=[...document.querySelectorAll('mark.uh')].map(function(m){return m.textContent;});
+    var arr=[...document.querySelectorAll('mark.uh')].map(function(m){return {t:m.textContent,c:m.dataset.c||'o'};});
     localStorage.setItem(KEY_HL,JSON.stringify(arr));
   }
-  addBtn.addEventListener('click',function(){
-    var sel=window.getSelection(); if(!sel.rangeCount) return;
-    highlightRange(sel.getRangeAt(0));
-    sel.removeAllRanges(); hideBar(); saveHL(); toast('Highlighted');
+  [...bar.querySelectorAll('.hc')].forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var sel=window.getSelection(); if(!sel.rangeCount) return;
+      applyMark(sel.getRangeAt(0), btn.dataset.c);
+      sel.removeAllRanges(); hideBar(); saveHL(); toast('Highlighted');
+    });
   });
-  /* click a highlight to remove it */
+  var shareBtn=document.getElementById('hltShare');
+  if(shareBtn) shareBtn.addEventListener('click',function(){
+    var sel=window.getSelection(); var txt=sel?sel.toString().trim():'';
+    if(!txt) return;
+    var url=location.href.split('#')[0];
+    var payload={title:'The Platform Engineering Handbook', text:'\u201c'+txt+'\u201d', url:url};
+    if(navigator.share){ navigator.share(payload).catch(function(){}); }
+    else if(navigator.clipboard){ navigator.clipboard.writeText('\u201c'+txt+'\u201d \u2014 '+url); toast('Copied to share'); }
+    hideBar();
+  });
   document.addEventListener('click',function(e){
     var m=e.target.closest && e.target.closest('mark.uh');
     if(m){ var p=m.parentNode; while(m.firstChild) p.insertBefore(m.firstChild,m); p.removeChild(m); p.normalize(); saveHL(); }
   });
-  /* re-apply saved highlights on load (match text within readable areas) */
   function restoreHL(){
     var raw=localStorage.getItem(KEY_HL); if(!raw) return;
     var arr; try{ arr=JSON.parse(raw); }catch(e){ return; }
-    arr.forEach(function(txt){
+    arr.forEach(function(it){
+      var txt=(typeof it==='string')?it:it.t, ck=(typeof it==='string')?'o':(it.c||'o');
       if(!txt||txt.length<4) return;
       var areas=document.querySelectorAll('.prose p, .note, blockquote, .wrap p');
       for(var a=0;a<areas.length;a++){
-        var el=areas[a]; if(el.querySelector('mark.uh')) continue;
-        var idx=el.textContent.indexOf(txt);
-        if(idx>=0){
+        var el=areas[a]; var idx=el.textContent.indexOf(txt);
+        if(idx>=0 && !el.querySelector('mark.uh')){
           var tw=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null), node, pos=0, range=document.createRange(), set=false;
           while(node=tw.nextNode()){
             var len=node.nodeValue.length;
@@ -1657,7 +1671,7 @@ figure.viz,.viz{position:relative}
             if(set && idx+txt.length<=pos+len){ range.setEnd(node,idx+txt.length-pos); break; }
             pos+=len;
           }
-          if(set){ highlightRange(range); break; }
+          if(set){ applyMark(range,ck); break; }
         }
       }
     });
