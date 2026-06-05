@@ -408,6 +408,16 @@ figure.viz,.viz{position:relative}
   .hero h1{font-size:54px}
   .start{display:none !important}
 }
+
+/* ===== UI FIXES (user) ===== */
+.scrollcue{display:none !important}                                  /* 1: no overlap with download btn */
+.scene{padding-top:60px !important;padding-bottom:60px !important}   /* 2: tighter gaps */
+.scene.tight{padding-top:42px !important;padding-bottom:42px !important}
+.quote{padding-top:80px !important;padding-bottom:80px !important;min-height:auto !important}
+.lede,.prose p,.prose p.first,p.prose{font-size:clamp(15px,1.5vw,17px) !important}  /* 3: uniform text size */
+.lede{line-height:1.7 !important}
+.chapter .cbig{position:absolute !important;right:6vw !important;top:50% !important;left:auto !important;transform:translateY(-50%) !important;font-family:var(--font) !important;font-size:clamp(150px,30vw,360px) !important;font-weight:600 !important;color:rgba(250,247,236,.2) !important;line-height:1 !important;letter-spacing:-.04em !important;margin:0 !important;pointer-events:none !important}  /* 4: big transparent ghost chapter number */
+@media(max-width:760px){.numrow{grid-template-columns:1fr !important}}
 </style>
 </head>
 <body>
